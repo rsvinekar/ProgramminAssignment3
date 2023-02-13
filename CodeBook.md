@@ -337,7 +337,7 @@ a `.csv` file for point 1, 4 and 5.
 
     ``` r
     #activity_subject
-    write.table(activity_subject,"activity_subject_dataset.tab",sep="\t", row.names=FALSE)
+    write.table(activity_subject,"activity_subject_dataset.tab", row.names=FALSE)
     ```
 
 If we need summarization with only subject:
@@ -347,7 +347,7 @@ by_subject <- mean_std_only %>%
   group_by(Subject) %>%
   summarise(across(where(is.numeric), mean))
 #activity_subject
-write.table(by_subject,"by_subject_dataset.tab",sep="\t", row.names=FALSE)
+write.table(by_subject,"by_subject_dataset.tab", row.names=FALSE)
 ```
 
 If we need summarization with only activity:
@@ -357,5 +357,5 @@ by_activity <- mean_std_only %>%
   group_by(Activity) %>%
   summarise(across(where(is.numeric), mean))
 #activity_subject
-write.table(by_activity,"by_activity_dataset.tab",sep="\t", row.names=FALSE)
+write.table(by_activity,"by_activity_dataset.tab", row.names=FALSE)
 ```

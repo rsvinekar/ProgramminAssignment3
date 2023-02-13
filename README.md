@@ -17,7 +17,7 @@ On top of this raw data, there is the requirements
 
 The code has been written on Rstudio using the CodeBook.Rmd file. 
 This file is converted to CodeBook.md and the R script run_analysis.R using purl()
-The datasets are tab separated value text files (.tab)
+The datasets are text files with extension (.tab)
 - The composite dataset of point 1 above is called composite_dataset.tab
 - The dataset with means and standard deviations is mean_std_dataset.tab
 - The dataset with average values for each activity and subject is activity_subject_dataset.tab
