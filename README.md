@@ -24,4 +24,16 @@ The datasets are text files with extension (.tab)
 - For datasets with Subject alone by_subject_dataset.tab
 - For dataset with Activity alone by_activity_dataset.tab
 
+The run_analysis.R file is used to run the analysis. There are three functions
+get_feature_labels(filename)
+get_activity_labels(filename)
+get_folder_data(dataset)  ## dataset = "test" or "train"
+
+These functions are called to read required data from the files and tidy the data as required
+The get_folder_data function knits the data together to provide a comprehensive "test" or "train" dataset, which is then combined outside
+Steps are taken to tidy the dataset after reading the data
+Details are provided in CodeBook.md
+
+The best way to run the code is in RStudio, using the CodeBook.Rmd file. However since this is not asked, the Codebook.md and run_analysis.R files are generated from this file.
+Other R files were temporary (read_data.R and functions.R ). They are left as is, and are mostly functional (read_data.R works partly like run_analysis.R, but has functions in functions.R)
 
