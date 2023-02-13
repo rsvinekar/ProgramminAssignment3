@@ -340,4 +340,18 @@ a `.csv` file for point 1, 4 and 5.
     write.table(activity_subject,"activity_subject_dataset.tab",sep="\t", row.names=FALSE)
     ```
 
-<!-- -->
+``` r
+by_subject <- mean_std_only %>% 
+  group_by(Subject) %>%
+  summarise(across(where(is.numeric), mean))
+#activity_subject
+write.table(by_subject,"by_subject_dataset.tab",sep="\t", row.names=FALSE)
+```
+
+``` r
+by_activity <- mean_std_only %>% 
+  group_by(Activity) %>%
+  summarise(across(where(is.numeric), mean))
+#activity_subject
+write.table(by_activity,"by_activity_dataset.tab",sep="\t", row.names=FALSE)
+```
