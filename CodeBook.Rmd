@@ -272,6 +272,8 @@ This thus satisfies 3 out of 5 aims requested. The rest can be done on the `comp
     write.table(activity_subject,"activity_subject_dataset.tab",sep="\t", row.names=FALSE)
     ```
 
+If we need summarization with only subject:
+
 ```{r}
 by_subject <- mean_std_only %>% 
   group_by(Subject) %>%
@@ -279,6 +281,8 @@ by_subject <- mean_std_only %>%
 #activity_subject
 write.table(by_subject,"by_subject_dataset.tab",sep="\t", row.names=FALSE)
 ```
+
+If we need summarization with only activity:
 
 ```{r}
 by_activity <- mean_std_only %>% 
