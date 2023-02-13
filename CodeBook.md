@@ -99,7 +99,7 @@ value, Y and Z are added.
 
 This has been done manually, though it could be done programmatically.
 This removes duplicates in a proper scientifically correct manner
-(assumption - of course). This gets rid of any errors with the merge
+(assumption - of course). This gets rid of any errors with the `mutate`
 program
 
 The features_info.txt file and the fact that the duplicates are repeated
