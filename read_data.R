@@ -36,7 +36,7 @@ source("functions.R")
 ## This is the first step to tidy data - remove duplicate variables
 
 ## get it as a character vector, and clean labels
-feature_labels <- get_feature_labels(filename = "features.txt")
+feature_labels <- get_feature_labels(filename = "features_edited.txt")
 
 ## Second step to tidy data : remove symbols and spaces in variable names and 
 ## make them meaningful - This is done in the function
@@ -65,4 +65,6 @@ train <- get_folder_data("train")
 # Combine test and training sets to give a composite
 
 composite <- rbind(test,train)
-
+groupings <- composite %>% 
+             group_by(Subject, Activity) %>% 
+             summarise(across(where(is.numeric), mean))

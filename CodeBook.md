@@ -134,6 +134,8 @@ to read the feature labels
 ### feature labels function - get_feature_labels(filename)
 
 ``` r
+## the activities like SITTING etc. are entered as numbers in a file
+## For more details look at the CodeBook.md or Codebook.Rmd file
 get_feature_labels <- function(filename = "features.txt"){
   features <- read.table(filename)
   feature_labels <- features[,2]
@@ -214,7 +216,13 @@ The function to be written must
     This column is not requested and may be dropped if not needed.
 
 ``` r
-## Read files from the required test or train folder
+## Read data from folders test and train. The task is repeated and follows a
+## pattern, so it has been put in a function get_folder_data :-
+## The function reads X, Y and subject data from these folders
+## It also reads features, activity names and returns a dataframe with
+## Descriptive activities as factors, subjects and a column to show 
+## source of data as test/train, which may help in combined data
+## this source Dataset column may be dropped if unnecessary.
 get_folder_data <- function(
     name,
     features=feature_labels,
@@ -290,8 +298,23 @@ a `.csv` file for point 1, 4 and 5.
 1.  Merges the training and the test sets to create one data set. -
     **Done**
 
+    ``` r
+    #names(composite)
+    write.table(composite,"composite_dataset.tab",sep="\t", row.names=FALSE)
+    ```
+
 2.  Extracts only the measurements on the mean and standard deviation
     for each measurement.
+
+    ``` r
+    Var_std <- str_detect(names(composite),'_std') #all standard deviations
+    Var_mean <- str_detect(names(composite),'_mean') #mean and meanFreq
+    mean_std <- Var_mean | Var_std
+    mean_std[562:564] <- TRUE # We need Activity, Subject, Dataset, our extra cols
+    mean_std_only <- composite[,mean_std]
+    #names(mean_std_only)
+    write.table(mean_std_only,"mean_std_dataset.tab",sep="\t", row.names=FALSE)
+    ```
 
 3.  Uses descriptive activity names to name the activities in the data
     set - **Done**
@@ -302,3 +325,19 @@ a `.csv` file for point 1, 4 and 5.
 5.  From the data set in step 4, creates a second, independent tidy data
     set with the average of each variable for each activity and each
     subject.
+
+    ``` r
+    activity_subject <- mean_std_only %>% 
+      group_by(Subject,Activity) %>%
+      summarise(across(where(is.numeric), mean))
+    ```
+
+        ## `summarise()` has grouped output by 'Subject'. You can override using the
+        ## `.groups` argument.
+
+    ``` r
+    #activity_subject
+    write.table(activity_subject,"activity_subject_dataset.tab",sep="\t", row.names=FALSE)
+    ```
+
+<!-- -->

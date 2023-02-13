@@ -7,7 +7,7 @@ get_activity_labels <- function(filename="activity_labels.txt"){
 
 ## Read the features file for variable names and clean the variables
 get_feature_labels <- function(filename = "features.txt"){
-  features <- read.table("features.txt")
+  features <- read.table(filename)
   feature_labels <- features[,2]
   ## get it as a character vector, and clean labels
   ## Second step to tidy data : remove symbols and spaces in variable names and 
@@ -25,7 +25,6 @@ get_feature_labels <- function(filename = "features.txt"){
   feature_labels <- gsub("\\)","",feature_labels)
   feature_labels <- gsub("-","_",feature_labels)
   feature_labels <- gsub(",",".and.",feature_labels)
-  feature_labels
 }
 ## Read files from the required test or train folder
 get_folder_data <- function(
