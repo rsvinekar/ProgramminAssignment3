@@ -13,7 +13,7 @@ On top of this raw data, there is the requirements
 >1. Appropriately labels the data set with descriptive variable names. 
 >1. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-* CodeBook.md to be provided 
+* CodeBook.md to be provided. Please look at (CodeBook.md) for more details
 
 The code has been written on Rstudio using the CodeBook.Rmd file. 
 This file is converted to CodeBook.md and the R script run_analysis.R using purl()
