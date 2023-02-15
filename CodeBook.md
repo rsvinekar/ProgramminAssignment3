@@ -234,14 +234,14 @@ get_folder_data <- function(
   }
   
   # construct file names - it (i.e. name) is either test or train
-  X_file = paste(name,"/X_",name,".txt")
-  Y_file = paste(name,"/Y_",name,".txt")
-  subject_file = paste(name,"/subject_",name,".txt")
+  X_file = paste(name,"/X_",name,".txt",sep="")
+  Y_file = paste(name,"/Y_",name,".txt",sep="")
+  subject_file = paste(name,"/subject_",name,".txt",sep="")
   
   ## Open and read the files
-  X <- read.table("test/X_test.txt",sep="", header=FALSE)
-  Y <- read.table("test/Y_test.txt",sep="", header=FALSE)
-  subject <- read.table("test/subject_test.txt",sep="", header=FALSE)
+  X <- read.table(X_file,sep="", header=FALSE)
+  Y <- read.table(Y_file,sep="", header=FALSE)
+  subject <- read.table(subject_file,sep="", header=FALSE)
   
   ## Label them properly
   names(X) <- features
