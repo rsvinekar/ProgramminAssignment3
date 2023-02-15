@@ -1,12 +1,12 @@
-## ----setup, include=FALSE-------------------------------------------------------
+## ----setup, include=FALSE------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 library(tidyverse)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 ## the activities like SITTING etc. are entered as numbers in a file
 ## For more details look at the CodeBook.md or Codebook.Rmd file
 get_feature_labels <- function(filename = "features.txt"){
@@ -21,7 +21,7 @@ get_feature_labels <- function(filename = "features.txt"){
 }
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 ## Read the activity file for activity descriptions
 get_activity_labels <- function(filename="activity_labels.txt"){
   activity_labels <- read.table(filename)
@@ -30,7 +30,7 @@ get_activity_labels <- function(filename="activity_labels.txt"){
 }
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 ## Read data from folders test and train. The task is repeated and follows a
 ## pattern, so it has been put in a function get_folder_data :-
 ## The function reads X, Y and subject data from these folders
@@ -49,14 +49,14 @@ get_folder_data <- function(
   }
   
   # construct file names - it (i.e. name) is either test or train
-  X_file = paste(name,"/X_",name,".txt")
-  Y_file = paste(name,"/Y_",name,".txt")
-  subject_file = paste(name,"/subject_",name,".txt")
+  X_file = paste(name,"/X_",name,".txt",sep="")
+  Y_file = paste(name,"/Y_",name,".txt",sep="")
+  subject_file = paste(name,"/subject_",name,".txt",sep="")
   
   ## Open and read the files
-  X <- read.table("test/X_test.txt",sep="", header=FALSE)
-  Y <- read.table("test/Y_test.txt",sep="", header=FALSE)
-  subject <- read.table("test/subject_test.txt",sep="", header=FALSE)
+  X <- read.table(X_file,sep="", header=FALSE)
+  Y <- read.table(Y_file,sep="", header=FALSE)
+  subject <- read.table(subject_file,sep="", header=FALSE)
   
   ## Label them properly
   names(X) <- features
@@ -78,29 +78,29 @@ get_folder_data <- function(
 }
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 feature_labels <- get_feature_labels(filename = "features_edited.txt")
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 activity_labels <- get_activity_labels(filename="activity_labels.txt")
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 test <- get_folder_data("test")
 train <- get_folder_data("train")
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 composite <- rbind(test,train)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 #names(composite)
 write.table(composite,"composite_dataset.tab",sep="\t", row.names=FALSE)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 Var_std <- str_detect(names(composite),'_std') #all standard deviations
 Var_mean <- str_detect(names(composite),'_mean') #mean and meanFreq
 mean_std <- Var_mean | Var_std
@@ -110,7 +110,7 @@ mean_std_only <- composite[,mean_std]
 write.table(mean_std_only,"mean_std_dataset.tab",sep="\t", row.names=FALSE)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 activity_subject <- mean_std_only %>% 
   group_by(Subject,Activity) %>%
   summarise(across(where(is.numeric), mean))
@@ -118,7 +118,7 @@ activity_subject <- mean_std_only %>%
 write.table(activity_subject,"activity_subject_dataset.tab", row.names=FALSE)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 by_subject <- mean_std_only %>% 
   group_by(Subject) %>%
   summarise(across(where(is.numeric), mean))
@@ -126,7 +126,7 @@ by_subject <- mean_std_only %>%
 write.table(by_subject,"by_subject_dataset.tab", row.names=FALSE)
 
 
-## -------------------------------------------------------------------------------
+## ------------------------------------------------------------
 by_activity <- mean_std_only %>% 
   group_by(Activity) %>%
   summarise(across(where(is.numeric), mean))
